@@ -1,0 +1,21 @@
+<Project>
+  <ItemGroup>  
+    <PackageVersion Include="coverlet.collector" PrivateAssets="all" Version="6.0.1" />
+    <PackageVersion Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
+    <PackageVersion Include="Moq" Version="4.20.70" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" PrivateAssets="all" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" PrivateAssets="all" Version="17.9.0" />
+    <PackageVersion Include="MSTest.TestAdapter" PrivateAssets="all" Version="3.2.2" />
+    <PackageVersion Include="MSTest.TestFramework" PrivateAssets="all" Version="3.2.2" />
+    <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" PrivateAssets="all" Version="1.19.6" />
+    <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" PrivateAssets="all" Version="17.9.28" />
+    <PackageVersion Include="Serilog.AspNetCore" Version="8.0.1" />
+    <PackageVersion Include="Serilog.Enrichers.Environment" Version="2.3.0" />
+    <PackageVersion Include="Serilog.Enrichers.Thread" Version="3.1.0" />
+    <PackageVersion Include="Serilog.Sinks.Console" Version="5.0.1" />
+    <PackageVersion Include="Shouldly" PrivateAssets="all" Version="4.2.1" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" PrivateAssets="all" Version="6.5.0" />
+    <PackageVersion Include="xunit" PrivateAssets="all" Version="2.7.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" PrivateAssets="all" Version="2.5.7" />
+  </ItemGroup>
+</Project>

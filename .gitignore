@@ -1,0 +1,27 @@
+application/cache
+bin/
+obj/
+.vs/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Publish Web Output
+*.[Pp]ublish.xml
+*.azurePubxml
+# Note: Comment the next line if you want to checkin your web deploy settings,
+# but database connection strings (with potential passwords) will be unencrypted
+*.pubxml
+*.publishproj
+
+# Crash log files
+crash.log
+crash.*.log
+
+
+# Don't commit to source control the classes generated from nswag.json
+*_generated.cs

@@ -1,0 +1,171 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "1.0",
+    "title": "NetApiTemplate",
+    "summary": "A template for .NET API services.",
+    "description": "A template for .NET API services.",
+    "contact": {
+      "name": "Sergi",
+      "email": "example@email.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "/",
+      "descritpion": "Relative endpoints to the current server."
+    }
+  ],
+  "tags": [
+    {
+      "name": "WeatherForecast",
+      "description": "WeatherForecast."
+    }
+  ],
+  "security": [],
+  "paths": {
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "GetWeatherForecast",
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetWeatherForecastResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Request validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GetWeatherForecastResponse": {
+        "description": "The GetWeatherForecast response.",
+        "type": "object",
+        "required": [
+          "forecasts"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "forecasts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WeatherForecast"
+            },
+            "minItems": 0
+          }
+        }
+      },
+      "WeatherForecast": {
+        "description": "Information about the weather forecast.",
+        "type": "object",
+        "required": [
+          "date",
+          "temperatureC",
+          "temperatureF"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "temperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "temperatureF": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "ProblemDetails": {
+        "description": "Information about a request error.",
+        "type": "object",
+        "required": [
+          "type",
+          "title",
+          "status"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "type": "string",
+            "minLength": 4,
+            "maxLength": 200
+          },
+          "title": {
+            "type": "string",
+            "minLength": 4,
+            "maxLength": 100
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 100,
+            "maximum": 600
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true,
+            "minLength": 4,
+            "maxLength": 1000
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true,
+            "minLength": 4,
+            "maxLength": 2000
+          },
+          "errors": {
+            "type": "object",
+            "nullable": true,
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ProblemDetailsValidationError"
+            }
+          }
+        }
+      },
+      "ProblemDetailsValidationError": {
+        "description": "Information about a request input validation error.",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <OpenApiSpec Include="api-spec.json" />
+    <NSwagServer Include="nswag-server.json" />
+    <NSwagClient Include="nswag-client.json" />
+    <GeneratedServerCode Include="NetApiTemplateServer_generated.cs" />
+    <GeneratedClientCode Include="NetApiTemplateClient_generated.cs" />
+    <GeneratedCodeBaseNamespace Include="NetApiTemplate" />
+    <ClientClassName Include="NetApiTemplateClient" />
+
+    <NSwagDependencies Include="SwaggerDefinition.csproj;@(OpenApiSpec);@(NSwagServer);@(NSwagClient)" />
+    <NSwagGenerated Include="@(GeneratedServerCode);@(GeneratedClientCode)" />
+  </ItemGroup>
+
+  <Target Name="RunNSwag" BeforeTargets="BeforeCompile;CoreCompile" Inputs="@(NSwagDependencies)" Outputs="@(NSwagGenerated)">
+    <Exec Command="dotnet tool restore" />
+    <Message Importance="High" Text="Generating code from OpenApi spec..." />
+    <Exec Command="dotnet nswag run @(NSwagServer) /variables:OpenApiSpecFile=@(OpenApiSpec),Namespace=@(GeneratedCodeBaseNamespace).Api.Server,Output=@(GeneratedServerCode)" />
+    <Exec Command="dotnet nswag run @(NSwagClient) /variables:OpenApiSpecFile=@(OpenApiSpec),Namespace=@(GeneratedCodeBaseNamespace).Api.Client,ClientClassName=@(ClientClassName),Output=@(GeneratedClientCode)" />
+  </Target>
+
+  <ItemGroup>
+    <Compile Remove="*_generated.cs" />
+  </ItemGroup>
+  
+</Project>

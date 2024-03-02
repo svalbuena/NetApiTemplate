@@ -1,0 +1,38 @@
+name: Image -> Build
+description: Builds the Docker image
+
+inputs:
+  dockerfile-path:
+    description: Dockerfile location
+    required: true
+  image-name:
+    description: The Docker image name
+    required: true
+outputs:
+  image-sha-tag:
+    description: The sha tag
+    value: ${{ inputs.image-name }}:${{ steps.metadata.outputs.version }}
+
+runs:
+  using: composite
+  steps:
+    - name: Setup up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Docker Image Metadata
+      id: metadata
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ inputs.registry }}/${{ inputs.image-name }}
+        tags: type=sha
+        flavor: latest=true
+
+    - name: Build Image
+      uses: docker/build-push-action@v5
+      with:
+        push: false
+        context: .
+        file: ${{ inputs.dockerfile-path }}
+        tags: ${{ steps.metadata.outputs.tags }}
+        labels: ${{ steps.metadata.outputs.labels }}
+        provenance: false

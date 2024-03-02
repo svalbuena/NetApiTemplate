@@ -1,0 +1,50 @@
+name: Main
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  actions: write
+  checks: write
+  contents: read
+  id-token: write
+  pull-requests: write
+
+env:
+  BUILDKIT_PROGRESS: plain
+  SERVICE_IMAGE_NAME: netapitemplate
+
+jobs:
+  build-test-solution:
+    name: Solution -> Build, Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Solution -> Build, Test
+        uses: ./.github/actions/build-test-solution
+
+  build-service-image:
+    name: Service Image -> Build
+    runs-on: ubuntu-latest
+    needs: [build-test-solution]
+    outputs:
+      image-sha-tag: ${{ steps.image.outputs.image-sha-tag }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Service Image -> Build
+        id: image
+        uses: ./.github/actions/build-image
+        with:
+          dockerfile-path: ./src/Service/Dockerfile
+          image-name: ${{ env.SERVICE_IMAGE_NAME }}
+          registry: netapitemplate-registry

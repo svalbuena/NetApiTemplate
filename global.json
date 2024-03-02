@@ -1,0 +1,8 @@
+{
+  "_comment": "Remember to update the Runtime and SDK version in the Dockerfile",
+  "sdk": {
+    "version": "8.0.200",
+    "rollForward": "latestFeature",
+    "allowPrerelease": false
+  }
+}

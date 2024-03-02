@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <IsTestProject>true</IsTestProject>
+    <!-- Disable VSTHRD200:Use Async suffix for async methods, we don't want to use Async suffix in test names -->
+    <NoWarn>$(NoWarn);VSTHRD200</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Same UserSecretsId as the Service project, we set the secrets once and they are reused for both projects -->
+    <UserSecretsId>901bb8a6-e77e-4e2d-af14-fdfe17f1b05d</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="MSTest.TestAdapter" />
+    <PackageReference Include="MSTest.TestFramework" />
+    <PackageReference Include="Shouldly" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Api.Client\Api.Client.csproj" />
+    <ProjectReference Include="..\..\src\Service\Service.csproj" />
+  </ItemGroup>
+
+</Project>
