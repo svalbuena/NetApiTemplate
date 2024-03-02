@@ -30,9 +30,10 @@ runs:
     - name: Build Image
       uses: docker/build-push-action@v5
       with:
-        push: false
         context: .
         file: ${{ inputs.dockerfile-path }}
+        target: final
         tags: ${{ steps.metadata.outputs.tags }}
         labels: ${{ steps.metadata.outputs.labels }}
         provenance: false
+        push: false
