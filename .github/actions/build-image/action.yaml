@@ -8,6 +8,9 @@ inputs:
   image-name:
     description: The Docker image name
     required: true
+  registry:
+    description: The Docker registry
+    required: true
 outputs:
   image-sha-tag:
     description: The sha tag
